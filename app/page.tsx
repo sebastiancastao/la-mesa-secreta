@@ -20,6 +20,13 @@ type Feature = {
   text: string;
 };
 
+type GalleryImage = {
+  src: string;
+  alt: string;
+  label: string;
+  variant: "garden" | "night" | "food" | "day";
+};
+
 const features: Feature[] = [
   {
     icon: Leaf,
@@ -81,6 +88,33 @@ const menu = [
   },
 ];
 
+const galleryImages: GalleryImage[] = [
+  {
+    src: "/images/casa-nocturna-jardin.png",
+    alt: "Casa campestre de La Mesa Secreta iluminada de noche bajo guirnaldas",
+    label: "Jardín encendido",
+    variant: "garden",
+  },
+  {
+    src: "/images/terraza-luces-noche.png",
+    alt: "Terraza nocturna con sombrilla roja, plantas y luces cálidas",
+    label: "Terraza bajo luces",
+    variant: "night",
+  },
+  {
+    src: "/images/paella-mariscos.png",
+    alt: "Paella de mariscos servida en sartén sobre una mesa de madera",
+    label: "Cocina para compartir",
+    variant: "food",
+  },
+  {
+    src: "/images/terraza-campestre-dia.png",
+    alt: "Mesa campestre con sombrilla y vista verde sobre Rionegro",
+    label: "Vista de día",
+    variant: "day",
+  },
+];
+
 function BrandMark() {
   return (
     <svg className="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
@@ -101,6 +135,7 @@ function SiteHeader() {
       </a>
       <nav className="site-nav" aria-label="Principal">
         <a href="#experiencia">Experiencia</a>
+        <a href="#fotos">Fotos</a>
         <a href="#menu">Menú</a>
         <a href="#atardeceres">Atardeceres</a>
         <a href="#visitanos">Visítanos</a>
@@ -121,7 +156,7 @@ export default function Home() {
         <section className="hero" id="inicio">
           <Image
             className="hero__image"
-            src="/images/terraza-noche.jpg"
+            src="/images/terraza-luces-noche.png"
             alt="Terraza de La Mesa Secreta de noche, con guirnaldas de luz y corredor verde"
             fill
             priority
@@ -191,6 +226,33 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="photo-gallery" id="fotos" aria-label="Fotos de La Mesa Secreta">
+          <div className="container">
+            <div className="section-heading section-heading--split photo-gallery__heading">
+              <h2>
+                Rincones para llegar temprano. <em>Motivos para quedarse.</em>
+              </h2>
+              <p>
+                La casa, la terraza y la cocina se viven distinto a cada hora:
+                de la luz verde del campo a las guirnaldas encendidas de la noche.
+              </p>
+            </div>
+            <div className="gallery-grid">
+              {galleryImages.map((image) => (
+                <figure className={`gallery__item gallery__item--${image.variant}`} key={image.src}>
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes="(max-width: 760px) 100vw, (max-width: 1100px) 50vw, 33vw"
+                  />
+                  <figcaption>{image.label}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="menu-section" id="menu">
           <div className="container menu-container">
             <div className="section-heading section-heading--center">
@@ -230,8 +292,8 @@ export default function Home() {
         <section className="sunset" id="atardeceres">
           <div className="sunset__media">
             <Image
-              src="/images/atardecer-terraza.jpg"
-              alt="Atardecer sobre las montañas visto desde la terraza de La Mesa Secreta"
+              src="/images/terraza-campestre-dia.png"
+              alt="Mesa campestre con sombrilla y vista a las montañas desde La Mesa Secreta"
               fill
               sizes="(max-width: 900px) 100vw, 50vw"
             />

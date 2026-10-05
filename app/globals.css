@@ -421,6 +421,90 @@ h1 {
   margin-bottom: 0;
 }
 
+.photo-gallery {
+  padding: 96px 0 108px;
+  background: var(--ink-2);
+  color: var(--cream);
+}
+
+.photo-gallery__heading {
+  align-items: start;
+}
+
+.photo-gallery .section-heading p {
+  color: var(--muted);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr 1fr;
+  grid-auto-rows: 270px;
+  gap: 18px;
+}
+
+.gallery__item {
+  position: relative;
+  min-height: 260px;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--ink-3);
+  isolation: isolate;
+}
+
+.gallery__item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(0deg, rgba(11, 23, 19, 0.64), rgba(11, 23, 19, 0) 58%);
+}
+
+.gallery__item img {
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+
+.gallery__item:hover img {
+  transform: scale(1.03);
+}
+
+.gallery__item figcaption {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 18px;
+  z-index: 2;
+  color: var(--cream);
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.gallery__item--garden {
+  grid-row: span 2;
+}
+
+.gallery__item--night {
+  grid-column: span 2;
+}
+
+.gallery__item--garden img {
+  object-position: center 58%;
+}
+
+.gallery__item--night img {
+  object-position: center 48%;
+}
+
+.gallery__item--food img {
+  object-position: center;
+}
+
+.gallery__item--day img {
+  object-position: center 46%;
+}
+
 .menu-section {
   padding: 108px 0;
   background: var(--ink);
@@ -721,6 +805,16 @@ h1 {
     grid-template-columns: 1fr;
   }
 
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gallery__item--garden,
+  .gallery__item--night {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
   .sunset__media {
     min-height: 520px;
   }
@@ -803,9 +897,26 @@ h1 {
   }
 
   .experience,
+  .photo-gallery,
   .menu-section,
   .reservations {
     padding: 70px 0;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    gap: 14px;
+  }
+
+  .gallery__item {
+    aspect-ratio: 4 / 5;
+    min-height: 0;
+  }
+
+  .gallery__item--food,
+  .gallery__item--day {
+    aspect-ratio: 4 / 3;
   }
 
   .section-heading {
