@@ -2,14 +2,12 @@ import Image from "next/image";
 import {
   ArrowRight,
   AtSign,
-  Clock3,
   Download,
   Flame,
   Leaf,
   MapPin,
   MessageCircle,
   Sparkles,
-  UsersRound,
   type LucideIcon,
 } from "lucide-react";
 import { ReservationForm } from "./ReservationForm";
@@ -26,6 +24,14 @@ type GalleryImage = {
   label: string;
   variant: "garden" | "night" | "food" | "day";
 };
+
+const navLinks = [
+  { href: "#experiencia", label: "Experiencia" },
+  { href: "#fotos", label: "Fotos" },
+  { href: "#menu", label: "Menú" },
+  { href: "#atardeceres", label: "Atardeceres" },
+  { href: "#visitanos", label: "Visítanos" },
+];
 
 const features: Feature[] = [
   {
@@ -115,34 +121,21 @@ const galleryImages: GalleryImage[] = [
   },
 ];
 
-function BrandMark() {
-  return (
-    <svg className="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-      <circle cx="20" cy="20" r="18.5" />
-      <circle cx="20" cy="20" r="15" className="brand-mark__soft" />
-      <path d="M13 25c3-1 5-3 7-7M27 25c-3-1-5-3-7-7M20 18v-6" />
-      <circle cx="20" cy="11" r="1.4" className="brand-mark__dot" />
-    </svg>
-  );
-}
-
 function SiteHeader() {
   return (
     <header className="site-header">
-      <a className="brand" href="#inicio" aria-label="La Mesa Secreta, inicio">
-        <BrandMark />
-        <span>La Mesa Secreta</span>
+      <a className="wordmark" href="#inicio" aria-label="La Mesa Secreta, inicio">
+        La Mesa Secreta
       </a>
       <nav className="site-nav" aria-label="Principal">
-        <a href="#experiencia">Experiencia</a>
-        <a href="#fotos">Fotos</a>
-        <a href="#menu">Menú</a>
-        <a href="#atardeceres">Atardeceres</a>
-        <a href="#visitanos">Visítanos</a>
+        {navLinks.map((link) => (
+          <a key={link.href} href={link.href}>
+            {link.label}
+          </a>
+        ))}
       </nav>
       <a className="button button--outline header-cta" href="#reservas">
         Reservar
-        <ArrowRight aria-hidden="true" size={16} />
       </a>
     </header>
   );
@@ -159,7 +152,8 @@ export default function Home() {
             src="/images/terraza-luces-noche.png"
             alt="Terraza de La Mesa Secreta de noche, con guirnaldas de luz y corredor verde"
             fill
-            priority
+            loading="eager"
+            fetchPriority="high"
             sizes="100vw"
           />
           <div className="hero__shade" />
@@ -176,48 +170,52 @@ export default function Home() {
               <div className="hero__actions">
                 <a className="button button--solid" href="#reservas">
                   Reservar mesa
-                  <ArrowRight aria-hidden="true" size={18} />
+                  <ArrowRight aria-hidden="true" size={16} strokeWidth={1.5} />
                 </a>
                 <a className="text-link" href="#menu">
                   Ver el menú
-                  <ArrowRight aria-hidden="true" size={18} />
                 </a>
               </div>
-              <div className="hero__facts" aria-label="Datos principales">
+              <dl className="hero__facts">
                 <div>
-                  <Clock3 aria-hidden="true" size={20} />
-                  <span>Jueves a domingo</span>
-                  <strong>4 p.m. a 11 p.m.</strong>
+                  <dt>Jueves a domingo</dt>
+                  <dd>4 p.m. a 11 p.m.</dd>
                 </div>
                 <div>
-                  <UsersRound aria-hidden="true" size={20} />
-                  <span>Solo con reserva</span>
-                  <strong>12 mesas por noche</strong>
+                  <dt>Solo con reserva</dt>
+                  <dd>12 mesas por noche</dd>
                 </div>
-              </div>
-            </div>
-            <div className="hero__seal" aria-hidden="true">
-              <span>Cenas bajo las luces</span>
-              <small>Desde las 6 p.m.</small>
+              </dl>
             </div>
           </div>
+          <a className="hero__scroll" href="#experiencia">
+            Descubre
+          </a>
         </section>
 
         <section className="experience section-band" id="experiencia">
           <div className="container">
             <div className="section-heading section-heading--split">
-              <h2>
-                Lo secreto no es el lugar. <em>Es cómo se vive.</em>
-              </h2>
+              <div>
+                <p className="eyebrow">La experiencia</p>
+                <h2>
+                  Lo secreto no es el lugar. <em>Es cómo se vive.</em>
+                </h2>
+              </div>
               <p>
                 Pocas mesas, una cocina abierta al campo y un menú que cambia con
                 lo que llega de las fincas vecinas cada semana.
               </p>
             </div>
             <div className="feature-grid">
-              {features.map((feature) => (
+              {features.map((feature, index) => (
                 <article className="feature" key={feature.title}>
-                  <feature.icon aria-hidden="true" size={38} strokeWidth={1.4} />
+                  <div className="feature__top">
+                    <span className="feature__index">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <feature.icon aria-hidden="true" size={26} strokeWidth={1.2} />
+                  </div>
                   <h3>{feature.title}</h3>
                   <p>{feature.text}</p>
                 </article>
@@ -228,10 +226,13 @@ export default function Home() {
 
         <section className="photo-gallery" id="fotos" aria-label="Fotos de La Mesa Secreta">
           <div className="container">
-            <div className="section-heading section-heading--split photo-gallery__heading">
-              <h2>
-                Rincones para llegar temprano. <em>Motivos para quedarse.</em>
-              </h2>
+            <div className="section-heading section-heading--split">
+              <div>
+                <p className="eyebrow">La casa</p>
+                <h2>
+                  Rincones para llegar temprano. <em>Motivos para quedarse.</em>
+                </h2>
+              </div>
               <p>
                 La casa, la terraza y la cocina se viven distinto a cada hora:
                 de la luz verde del campo a las guirnaldas encendidas de la noche.
@@ -254,7 +255,7 @@ export default function Home() {
         </section>
 
         <section className="menu-section" id="menu">
-          <div className="container menu-container">
+          <div className="container">
             <div className="section-heading section-heading--center">
               <p className="eyebrow">Menú de temporada</p>
               <h2>Lo que llega a la mesa esta semana</h2>
@@ -269,22 +270,23 @@ export default function Home() {
                   <h3>{group.category}</h3>
                   {group.items.map((item) => (
                     <article className="menu-item" key={item.name}>
-                      <div>
+                      <div className="menu-item__line">
                         <h4>{item.name}</h4>
-                        <p>{item.detail}</p>
+                        <span className="menu-item__leader" aria-hidden="true" />
+                        <span className="menu-item__price">{item.price}</span>
                       </div>
-                      <span>{item.price}</span>
+                      <p>{item.detail}</p>
                     </article>
                   ))}
                 </section>
               ))}
             </div>
             <div className="menu-note">
+              <p>Menú degustación de 6 tiempos · maridaje opcional</p>
               <a className="button button--outline" href="#reservas">
                 Descargar carta
-                <Download aria-hidden="true" size={17} />
+                <Download aria-hidden="true" size={15} strokeWidth={1.5} />
               </a>
-              <p>Menú degustación de 6 tiempos · maridaje opcional</p>
             </div>
           </div>
         </section>
@@ -295,7 +297,7 @@ export default function Home() {
               src="/images/terraza-campestre-dia.png"
               alt="Mesa campestre con sombrilla y vista a las montañas desde La Mesa Secreta"
               fill
-              sizes="(max-width: 900px) 100vw, 50vw"
+              sizes="(max-width: 1100px) 100vw, 50vw"
             />
           </div>
           <div className="sunset__copy">
@@ -308,16 +310,16 @@ export default function Home() {
               Recomendamos reservar el primer turno para ver la puesta de sol con
               una copa en la mano.
             </p>
-            <div className="time-grid">
+            <dl className="time-grid">
               <div>
-                <span>Primer turno</span>
-                <strong>4:30 p.m.</strong>
+                <dt>Primer turno</dt>
+                <dd>4:30 p.m.</dd>
               </div>
               <div>
-                <span>Segundo turno</span>
-                <strong>7:30 p.m.</strong>
+                <dt>Segundo turno</dt>
+                <dd>7:30 p.m.</dd>
               </div>
-            </div>
+            </dl>
           </div>
         </section>
 
@@ -325,13 +327,15 @@ export default function Home() {
           <div className="container reservation-grid">
             <div className="reservation-copy">
               <p className="eyebrow">Reservas</p>
-              <h2>Guarda tu lugar en la mesa.</h2>
+              <h2>
+                Guarda tu lugar <em>en la mesa.</em>
+              </h2>
               <p>
                 Atendemos solo con reserva previa. Para grupos de más de 6
                 personas, celebraciones o cenas privadas, escríbenos por WhatsApp.
               </p>
               <a className="button button--ghost" href="https://wa.me/573001112233">
-                <MessageCircle aria-hidden="true" size={19} />
+                <MessageCircle aria-hidden="true" size={17} strokeWidth={1.5} />
                 WhatsApp +57 300 111 2233
               </a>
             </div>
@@ -344,13 +348,13 @@ export default function Home() {
         <div className="container footer__grid">
           <div>
             <p className="footer__brand">La Mesa Secreta</p>
-            <p className="eyebrow">Rionegro · Colombia</p>
+            <p className="footer__tagline">Cocina campestre de autor en el oriente antioqueño.</p>
           </div>
           <div>
             <span>Cómo llegar</span>
             <p>Vereda El Tablazo, Rionegro</p>
             <a href="#visitanos">
-              <MapPin aria-hidden="true" size={16} />
+              <MapPin aria-hidden="true" size={15} strokeWidth={1.5} />
               Abrir en Google Maps
             </a>
           </div>
@@ -362,18 +366,18 @@ export default function Home() {
           <div>
             <span>Síguenos</span>
             <a href="#visitanos">
-              <AtSign aria-hidden="true" size={16} />
+              <AtSign aria-hidden="true" size={15} strokeWidth={1.5} />
               @lamesasecreta
             </a>
             <a href="https://wa.me/573001112233">
-              <MessageCircle aria-hidden="true" size={16} />
+              <MessageCircle aria-hidden="true" size={15} strokeWidth={1.5} />
               WhatsApp
             </a>
           </div>
         </div>
         <div className="container footer__bottom">
           <span>© 2026 La Mesa Secreta</span>
-          <span>Cocina campestre de autor</span>
+          <span>Rionegro · Antioquia · Colombia</span>
         </div>
       </footer>
     </>

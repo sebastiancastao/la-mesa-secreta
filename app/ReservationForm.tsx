@@ -29,6 +29,10 @@ export function ReservationForm() {
 
   return (
     <form className="reservation-form" onSubmit={handleSubmit}>
+      <div className="reservation-form__head reservation-form__wide">
+        <h3>Solicitud de reserva</h3>
+        <p>Se abrirá WhatsApp con tu solicitud lista para enviar.</p>
+      </div>
       <label>
         Fecha
         <input name="date" type="date" required />
@@ -45,11 +49,11 @@ export function ReservationForm() {
       </label>
       <label>
         Nombre
-        <input name="name" type="text" placeholder="Tu nombre" required />
+        <input name="name" type="text" placeholder="Tu nombre" autoComplete="name" required />
       </label>
       <label>
         Celular
-        <input name="phone" type="tel" placeholder="+57" required />
+        <input name="phone" type="tel" placeholder="+57" autoComplete="tel" required />
       </label>
       <label className="reservation-form__wide">
         Turno
@@ -61,7 +65,7 @@ export function ReservationForm() {
       </label>
       <button className="button button--dark reservation-form__wide" type="submit">
         Solicitar reserva
-        <ArrowRight aria-hidden="true" size={18} />
+        <ArrowRight aria-hidden="true" size={16} strokeWidth={1.5} />
       </button>
     </form>
   );
