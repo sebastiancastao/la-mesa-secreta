@@ -3,7 +3,7 @@
 import { type FormEvent } from "react";
 import { ArrowRight } from "lucide-react";
 
-const WHATSAPP_NUMBER = "573001112233";
+const WHATSAPP_NUMBER = "573104204077";
 
 export function ReservationForm() {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {

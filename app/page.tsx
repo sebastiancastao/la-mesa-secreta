@@ -121,6 +121,9 @@ const galleryImages: GalleryImage[] = [
   },
 ];
 
+const WHATSAPP_URL = "https://wa.me/573104204077";
+const WHATSAPP_DISPLAY = "+57 310 420 4077";
+
 function SiteHeader() {
   return (
     <header className="site-header">
@@ -334,9 +337,9 @@ export default function Home() {
                 Atendemos solo con reserva previa. Para grupos de más de 6
                 personas, celebraciones o cenas privadas, escríbenos por WhatsApp.
               </p>
-              <a className="button button--ghost" href="https://wa.me/573001112233">
+              <a className="button button--ghost" href={WHATSAPP_URL}>
                 <MessageCircle aria-hidden="true" size={17} strokeWidth={1.5} />
-                WhatsApp +57 300 111 2233
+                WhatsApp {WHATSAPP_DISPLAY}
               </a>
             </div>
             <ReservationForm />
@@ -369,7 +372,7 @@ export default function Home() {
               <AtSign aria-hidden="true" size={15} strokeWidth={1.5} />
               @lamesasecreta
             </a>
-            <a href="https://wa.me/573001112233">
+            <a href={WHATSAPP_URL}>
               <MessageCircle aria-hidden="true" size={15} strokeWidth={1.5} />
               WhatsApp
             </a>
